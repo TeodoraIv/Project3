@@ -1,0 +1,48 @@
+package fmi.informatics;
+import fmi.informatics.composition.RichStudent2;
+import fmi.informatics.extending.Person;
+import fmi.informatics.extending.Professor;
+import fmi.informatics.extending.Student;
+import fmi.informatics.interfaces.Adaptable;
+import java.util.ArrayList;
+import fmi.informatics.extending.Person;
+@SuppressWarnings("unused")
+public class Main {
+    public static <People> void showStats(ArrayList<People> people){
+        System.out.println("Number of people in ArrayLIst:" + people.size());
+        int numOfProf = 0, numOfRich = 0, numOfStud = 0;
+        for (Person p: people) {
+            if(p instanceof Professor) numOfProf++;
+            if(p instanceof RichStudent2) numOfRich++;
+            if(p instanceof Student) numOfStud++;
+        }
+        System.out.println("Number of Students in ArrayList:" + numOfStud);
+        System.out.println("Number of Professors in ArrayList:" + numOfProf);
+        System.out.println("Number of Rich Students in ArrayList:" + numOfRich);
+        for(People p: people){
+            if(p instanceof Student) ((Student)p).study();
+                if(p instanceof RichStudent2) ((RichStudent2) p).study();
+        }
+    }
+
+    public static void main(String[] args){
+        Professor p1 = new Professor();
+        Professor p2 = new Professor();
+        Student s1 = new Student();
+        RichStudent2 r1 = new RichStudent2();
+        ArrayList<Person> people = new ArrayList<Person>();
+        people.add(p1);
+        people.add(p2);
+        people.add(s1);
+        people.add(r1);
+        showStats(people);
+        Adaptable anon = new Adaptable() {};
+            String fullname = Student.class.getName();
+            try {Class<?> student = Class.forName(fullname);
+                Object stud1 = student.newInstance();
+        }
+            catch (ClassNotFoundException e) {}
+            catch (IllegalAccessException e) {}
+            catch (InstantiationException e) {};
+    }
+}
